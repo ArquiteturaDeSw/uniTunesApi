@@ -1,1 +1,6 @@
 
+
+_get:
+    path:     /
+    defaults: { _controller: ApiBundle:Users:Get }
+

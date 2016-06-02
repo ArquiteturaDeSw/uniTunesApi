@@ -2,54 +2,49 @@
 
 namespace CoreBundle\Entity;
 
-/**
- * User
- */
 class User
 {
-    /**
-     * @var int
-     */
-    private $id;
+    private $Name;
+    private $Email;
+    private $Password;
+    private $Status;
+    private $RecoveryPasswordHash;
+    private $IsAdministrator;
+    private $Purchases;
+    
+    function __construct($name, $email, $password){
+        $this->Name = $name;
+        $this->Email = $email;
+        
+        if (password.Length <= 6 || password.Length > 30)
+            throw new ArgumentException("the password must be longer than 6 and shorter than 30 chars.");
+            
+        $this->Password = $password;
+        
+        $this->Activate();
+        
+    }
+    
+    function Deactivate()
+    {
+        $this->Status = UserStatus.Deactivated;
+    }
 
-    /**
-     * @var string
-     */
-    private $name;
+    function Activate()
+    {
+        $this->Status = UserStatus.Active;
+    }
 
-    /**
-     * @var string
-     */
-    private $email;
-
-    /**
-     * @var string
-     */
-    private $password;
-
-    /**
-     * @var bool
-     */
-    private $status;
-
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
+    function Block()
+    {
+        $this->Status = UserStatus.Blocked;
+    }
+        
     public function getId()
     {
         return $this->id;
     }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return User
-     */
+     
     public function setName($name)
     {
         $this->name = $name;
@@ -57,86 +52,48 @@ class User
         return $this;
     }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return User
-     */
     public function setEmail($email)
     {
         $this->email = $email;
-
         return $this;
     }
 
-    /**
-     * Get email
-     *
-     * @return string
-     */
     public function getEmail()
     {
         return $this->email;
     }
 
-    /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return User
-     */
     public function setPassword($password)
     {
         $this->password = $password;
-
         return $this;
     }
 
-    /**
-     * Get password
-     *
-     * @return string
-     */
     public function getPassword()
     {
         return $this->password;
     }
 
-    /**
-     * Set status
-     *
-     * @param boolean $status
-     *
-     * @return User
-     */
     public function setStatus($status)
     {
         $this->status = $status;
-
         return $this;
     }
 
-    /**
-     * Get status
-     *
-     * @return bool
-     */
     public function getStatus()
     {
         return $this->status;
     }
 }
 
+abstract class UserStatus{
+    const PendingAproval = 1;
+    const Active = 2;
+    const Blocked = 3;
+    const Deactivated = 4;
+}

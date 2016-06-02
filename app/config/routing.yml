@@ -6,6 +6,6 @@ core:
     resource: "@CoreBundle/Resources/config/routing.yml"
     prefix:   /
 
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+#app:
+#    resource: "@ApiBundle/Controller/"
+#    type:     annotation

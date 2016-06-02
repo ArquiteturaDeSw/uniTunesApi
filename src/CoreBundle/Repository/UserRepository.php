@@ -11,3 +11,5 @@ namespace CoreBundle\Repository;
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
 }
+
+?>

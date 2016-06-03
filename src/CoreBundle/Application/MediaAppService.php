@@ -1,6 +1,6 @@
 <?php
 
-namespace UniTunes\Core\Application;
+namespace CoreBundle\Application;
 
     class MediaAppService
     {
@@ -30,14 +30,14 @@ namespace UniTunes\Core\Application;
                       , $pages = 0
                       , $isAvailable = true)
         {
-            $media = $this->_factory.GetInstance($this->_ctx, $name, $description, $authorId, $imagepath, $price, $isAvailable, $categoryId, $duration, $urlFeed, $quality, $pages);
+            $media = $this->_factory->GetInstance($this->_ctx, $name, $description, $authorId, $imagepath, $price, $isAvailable, $categoryId, $duration, $urlFeed, $quality, $pages);
             $this->_ctx->Medias->Add($media);
             $this->_ctx->SaveChanges();
         }
 
         function GetAll() // : IEnumerable<Media>
         {
-            return $this->_ctx->Medias->Where($x => !$x->Deleted)->ToList();
+            #return $this->_ctx->Medias->Where($x => !$x->Deleted)->ToList();
         }
 
         function Remover($mediaId) // : void
@@ -60,22 +60,22 @@ namespace UniTunes\Core\Application;
 
         function Buy($userId, $mediaId) // : void
         {
-            throw new NotImplementedException();
+            #throw new NotImplementedException();
         }
 
-        function GetPurchaseByDate(DateTime datetime) // : List<Purchase>
+        function GetPurchaseByDate(/*DateTime*/ $datetime) // : List<Purchase>
         {
-            throw new NotImplementedException();
+            #throw new NotImplementedException();
         }
 
-        function GetPurchaseByRange(DateTime begin, DateTime end) // : List<Purchase>
+        function GetPurchaseByRange(/*DateTime*/ $begin, /*DateTime*/ $end) // : List<Purchase>
         {
-            throw new NotImplementedException();
+            #throw new NotImplementedException();
         }
 
         function GetTotalRevanue() // : decimal
         {
-            throw new NotImplementedException();
+            #throw new NotImplementedException();
         }
     }
 

@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-namespace UniTunes\Core\Application;
+namespace CoreBundle\Application;
 
     class AlbumAppService
     {
@@ -18,12 +18,12 @@ namespace UniTunes\Core\Application;
 
         function GetNewstAlbums() // : List<Album>
         {
-            throw new System.NotImplementedException();
+            #throw new System.NotImplementedException();
         }
 
         function GetRecentAlbums() // : List<Album>
         {
-            throw new System.NotImplementedException();
+            #throw new System.NotImplementedException();
         }
     }
 ?>

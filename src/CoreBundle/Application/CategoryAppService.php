@@ -1,6 +1,6 @@
 <?php
 
-namespace UniTunes\Core\Application;
+namespace CoreBundle\Application;
 
     class CategoryAppService
     {
@@ -13,7 +13,7 @@ namespace UniTunes\Core\Application;
 
         function Get() // : List<Category> 
         {
-            return $this->_ctx->Categories->Where($x => !$x.Deleted)->ToList();
+            #return $this->_ctx->Categories->Where($x => !$x.Deleted)->ToList();
         }
 
         function Create($name) // : void
@@ -25,7 +25,7 @@ namespace UniTunes\Core\Application;
         function Remove($id) // : void
         {
             $category = $this->_ctx->Categories->Find($id);
-            $category->Deleted = $true;
+            $category->Deleted = true;
             $this->_ctx->SaveChanges();
         }
     }

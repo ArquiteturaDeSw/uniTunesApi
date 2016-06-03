@@ -2,7 +2,7 @@
 
 namespace CoreBundle\Entity;
 
-class Category implements Entity
+class Category extends Entity
 {
     public $Name;
 

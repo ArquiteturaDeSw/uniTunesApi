@@ -1,4 +1,5 @@
 <?php
+namespace CoreBundle\Infra\Billing;
 
     interface ICardOperator
     {
@@ -34,16 +35,16 @@
 
     class CardOperatorFactory
     {
-        public ICardOperator GetInstance(CardFlag flag)
+        function GetInstance( /*CardFlag*/ $flag) // : ICardOperator
         {
-            switch (flag)
+            switch ($flag)
             {
                 case CardFlag.Visa:
                     return new Visa();
                 case CardFlag.Master:
                     return new Master();
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(flag));
+                    throw new ArgumentOutOfRangeException(nameof($flag));
             }
         }
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace UniTunes\Core\Application;
+namespace CoreBundle\Application;
 
     class BookMarkAppService
     {
@@ -8,12 +8,12 @@ namespace UniTunes\Core\Application;
         
         function __construct($ctx)
         {
-            $this->_ctx = $ctx;
+            //$this->_ctx = $ctx;
         }
 
         function Get($userId) // : List<BookMarkList>
         {
-            return $this->_ctx->BookMarkLists.Where(x => !x->Deleted)->ToList();
+            #return $this->_ctx->BookMarkLists->Where($x => !$x->Deleted)->ToList();
         }
 
         function Create($userId, $name)// : void
@@ -28,15 +28,15 @@ namespace UniTunes\Core\Application;
             $bookMarkList = $this->_ctx->BookMarkLists->Find($bookMarkListId);
             foreach ($bookMarkList->Items as $item)
             {
-                $item->Deleted = $true;
+                $item->Deleted = true;
             }
-            bookMarkList->Deleted = true;
+            $bookMarkList->Deleted = true;
             $this->_ctx->SaveChanges();
         }
 
         function Edit($bookMarkListId, $newName) // : void
         {
-            throw new System.NotImplementedException();
+            #throw new System.NotImplementedException();
         }
 
         function AddItem($bookMarkListId, $mediaId) // : void
@@ -49,7 +49,7 @@ namespace UniTunes\Core\Application;
 
         function RemoveItem($bookMarkListId, $mediaId) // : void
         {
-            throw new System.NotImplementedException();
+            #throw new System.NotImplementedException();
         }
     }
 ?>

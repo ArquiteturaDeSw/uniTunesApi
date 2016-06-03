@@ -2,7 +2,7 @@
 
 namespace CoreBundle\Entity;
 
-class Purchase implements Entity
+class Purchase extends Entity
 {
     public $Buyer;
     public $Media;

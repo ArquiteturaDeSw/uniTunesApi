@@ -1,5 +1,6 @@
 <?php 
-namespace UniTunes\Core\Application;
+#namespace UniTunes\Core\Application;
+namespace CoreBundle\Application;
 
     class WalletAppService
     {
@@ -12,7 +13,7 @@ namespace UniTunes\Core\Application;
             $this->_factory = new CardOperatorFactory();
         }
 
-        function AddCredit($userId, $cardNumber, $verificationCode, $name, $flag, $value)
+        function AddCreditByCreditCard($userId, $cardNumber, $verificationCode, $name, $flag, $value)
         {
             $this->_factory->GetInstance($flag).Debit($name, $cardNumber, $verificationCode, $value);
             $wallet = GetOrCreateWallet($userId);
@@ -20,19 +21,20 @@ namespace UniTunes\Core\Application;
             $this->_ctx.SaveChanges();
         }
 
-        function AddCredit($barcode)
+        function AddCreditByBoleto($barcode)
         {
-            throw new System.NotImplementedException();
+            #throw new System.NotImplementedException();
         }
 
-        function AddCredit($accountNumber, $agency)
+        function AddCreditTransfer($accountNumber, $agency)
         {
-            throw new System.NotImplementedException();
+            #throw new System.NotImplementedException();
         }
 
         function GetOrCreateWallet($userId)
         {
-            $wallet = $this->_ctx->Wallets->FirstOrDefault($x => $x->Owner->Id == $userId);
+            #$wallet = $this->_ctx->Wallets->FirstOrDefault($x => $x->Owner->Id == $userId);
+            $wallet = null; //TODO: fazer a query acima
             if ($wallet == null)
             {
                 $user = $this->_ctx->Users->Find($userId);

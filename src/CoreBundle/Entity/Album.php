@@ -2,7 +2,7 @@
 
 namespace CoreBundle\Entity;
 
-class Album implements Entity
+class Album extends Entity
 {
 	
 	public $Name;

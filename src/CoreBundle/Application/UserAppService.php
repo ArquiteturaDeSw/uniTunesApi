@@ -5,6 +5,7 @@ namespace CoreBundle\Application;
 use CoreBundle\Infra;
 use CoreBundle\Repository\UnisinosCrypt;
 
+use CoreBundle\Repository\UserRepository;
 
  class UserAppService
     {

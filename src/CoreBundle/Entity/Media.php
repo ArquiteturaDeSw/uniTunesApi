@@ -2,7 +2,7 @@
 
 namespace CoreBundle\Entity;
 
-    abstract class Media implements Entity
+    abstract class Media extends Entity
     {
         public $Name;
         public $Description;
@@ -18,27 +18,27 @@ namespace CoreBundle\Entity;
         }
     }
 
-    abstract class Audible implements Media
+    abstract class Audible extends Media
     {
         //public TimeSpan Duration { get; set; }
         //TODO: Descobrir como é TimeSpan no PHP
     }
 
-    class Music implements Audible
+    class Music extends Audible
     {
     }
 
-    class PodCast implements Audible
+    class PodCast extends Audible
     {
         public $UrlFeed;
     }
 
-    class Video implements Audible
+    class Video extends Audible
     {
         public $Quality;
     }
 
-    class Book implements Media
+    class Book extends Media
     {
         public $Pages;
     }

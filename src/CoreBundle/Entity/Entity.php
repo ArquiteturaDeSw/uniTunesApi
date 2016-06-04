@@ -4,13 +4,26 @@ namespace CoreBundle\Entity;
 
 abstract class Entity
 {
+	/**
+	 * @Id @Column(type="integer")
+	 * @GeneratedValue
+	 **/
 	public $Id;
+
+	/** @Column(type="datetime") */
 	public $CreationDate;
+
+	/** @Column(type="boolean") */
 	public $Deleted;
 	
 	function __construct()
 	{
-		$this->CreationDate = new DateTime(); //TODO: verificar se isto retorna a mesma coisa que DateTime.Now
+		date_default_timezone_set('UTC');
+
+		$this->CreationDate = date('Y-m-d H:i:s');
+		//$this->CreationDate = new DateTime(); //TODO: verificar se isto retorna a mesma coisa que DateTime.Now
+
+		$this->Deleted = false;
 	}
 }
 ?>

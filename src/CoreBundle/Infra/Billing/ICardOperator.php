@@ -1,22 +1,25 @@
 <?php
 namespace CoreBundle\Infra\Billing;
+#require("/mnt/c/Users/trlth/gitrepository/uniTunesApi/uniTunesApi/src/CoreBundle/Entity/CardFlag.php");
+use CoreBundle\Entity;
+
 
     interface ICardOperator
     {
         function Debit($name, $cardNumber, $verificationCode, $value);
-        function Refound($name, $cardNumber, $verificationCode, $value);
+        function Refund($name, $cardNumber, $verificationCode, $value);
     }
 
     class Visa implements ICardOperator
     {
         function Debit($name, $cardNumber, $verificationCode, $value)
         {
-            throw new NotImplementedException();
+            #throw new NotImplementedException();
         }
 
-        function Refound($name, $cardNumber, $verificationCode, $value)
+        function Refund($name, $cardNumber, $verificationCode, $value)
         {
-            throw new NotImplementedException();
+            #throw new NotImplementedException();
         }
     }
 
@@ -24,12 +27,12 @@ namespace CoreBundle\Infra\Billing;
     {
         function Debit($name, $cardNumber, $verificationCode, $value)
         {
-            throw new NotImplementedException();
+            #throw new NotImplementedException();
         }
 
-        function Refound($name, $cardNumber, $verificationCode, $value)
+        function Refund($name, $cardNumber, $verificationCode, $value)
         {
-            throw new NotImplementedException();
+            #throw new NotImplementedException();
         }
     }
 
@@ -39,12 +42,14 @@ namespace CoreBundle\Infra\Billing;
         {
             switch ($flag)
             {
-                case CardFlag.Visa:
+                case Entity\CardFlag::Visa:
+                    echo "visa";
                     return new Visa();
-                case CardFlag.Master:
+                case Entity\CardFlag::Master:
+                    echo "mater";
                     return new Master();
                 default:
-                    throw new ArgumentOutOfRangeException(nameof($flag));
+                    throw new InvalidArgumentException("Invalid Flag.");
             }
         }
     }

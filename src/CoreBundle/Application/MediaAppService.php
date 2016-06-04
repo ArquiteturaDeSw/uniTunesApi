@@ -40,14 +40,14 @@ namespace CoreBundle\Application;
             #return $this->_ctx->Medias->Where($x => !$x->Deleted)->ToList();
         }
 
-        function Remover($mediaId) // : void
+        function Remove($mediaId) // : void
         {
-            $media =$this->_ctx->Medias->Find($mediaId);
+            $media = $this->_ctx->Medias->Find($mediaId);
             $this->_ctx->Medias->Remove($media);
             $this->_ctx->SaveChanges();
         }
 
-        function Editar($mediaId, $name, $description, $price) // : void
+        function Edit($mediaId, $name, $description, $price) // : void
         {
             $media = $this->_ctx->Medias->Find($mediaId);
 

@@ -3,8 +3,7 @@
 namespace CoreBundle\Application;
 
 use CoreBundle\Infra;
-use CoreBundle\Repository\UnisinosCrypt;
-
+use CoreBundle\Entity\User;
 use CoreBundle\Repository\UserRepository;
 
  class UserAppService
@@ -14,8 +13,8 @@ use CoreBundle\Repository\UserRepository;
         
         function __construct(/*$ctx*/)
         {
-            #$this->_ctx = $ctx;
-            $this->_ctx = new UserRepository();
+            $entityManager = null; // TODO: descobrir como chamar o doctrine
+            $this->_ctx = new UserRepository($entityManager);
             $this->_crypto = new UnisinosCrypt();
         }
 

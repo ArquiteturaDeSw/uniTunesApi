@@ -2,15 +2,8 @@
 
 namespace CoreBundle\Application;
 
-    class CategoryAppService
+    class CategoryAppService extends AppServiceBase
     {
-        private $_ctx;
-
-        function __construct($ctx)
-        {
-            $this->_ctx = $ctx;
-        }
-
         function Get() // : List<Category> 
         {
             #return $this->_ctx->Categories->Where($x => !$x.Deleted)->ToList();

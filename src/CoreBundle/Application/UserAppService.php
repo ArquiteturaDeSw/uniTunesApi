@@ -6,15 +6,8 @@ use CoreBundle\Infra;
 use CoreBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 
-class UserAppService
+class UserAppService extends AppServiceBase
 {
-    private $databaseManager;
-
-    function __construct(EntityManager $entityManager)
-    {
-        $this->databaseManager = $entityManager;
-    }
-
     function Create($name, $email, $password)
     {
         $user = new User($name, $email, $password);

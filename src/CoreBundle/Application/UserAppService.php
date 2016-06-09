@@ -4,68 +4,40 @@ namespace CoreBundle\Application;
 
 use CoreBundle\Infra;
 use CoreBundle\Entity\User;
-use CoreBundle\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
 
- class UserAppService
+class UserAppService
+{
+    private $databaseManager;
+
+    function __construct(EntityManager $entityManager)
     {
-        private $_ctx;
-        private $_crypto;
-        
-        function __construct(/*$ctx*/)
-        {
-            $entityManager = null; // TODO: descobrir como chamar o doctrine
-            $this->_ctx = new UserRepository($entityManager);
-            $this->_crypto = new UnisinosCrypt();
-        }
+        $this->databaseManager = $entityManager;
+    }
 
-        function Create($name, $email, $password)
-        {
-            $this->_ctx->Users->Add(new User($name, $email, $this->_crypto->Encrypt($password)));
-            $this->_ctx->SaveChanges();
-        }
+    function Create($name, $email, $password)
+    {
+        $user = new User($name, $email, $password);
+        $this->databaseManager->persist($user);
+        $this->databaseManager->flush();
+    }
 
-        function GetById($id)
-        {
-            return $this->_ctx->Users->Find($id);
-        }
+    function GetById($id)
+    {
+        return $this->databaseManager->find('CoreBundle\Entity\User', $id);
+    }
 
-        function GetUserByCredentials($email, $password)
-        {
-            $securePassword = $this->_crypto->Encrypt($password);
+    function Edit($user)
+    {
+        $this->databaseManager->persist($user);
+        $this->databaseManager->flush();
+    }
 
-            $user = null; //TODO: descobrir como que faz o FirstOrDefault()
-            //$user = $this->_ctx->Users->FirstOrDefault(x => x->Email == $email && password == $securePassword);
-
-            if ($user == null)
-                throw new Exception("User not found");
-            else if ($user->Status == UserStatus::Deactivated)
-                throw new Exception("User disabled");
-
-            return $user;
-        }
-
-        function Edit($id, $name, $email)
-        {
-            $user = $this->_ctx->Users->Find($id);
-            $user->Name = $name;
-            $user->Email = $email;
-            $this->_ctx->SaveChanges();
-        }
-
-        function Delete($id)
-        {
-            $user = $this->_ctx->Users->Find($id);
-            $user->Deactivate();
-            $this->_ctx->SaveChanges();
-        }
-
-        function GetMedias($userId)
-        {
-            $user = $this->_ctx->Users->Find($userId);
-            if ($user == null) return array();
-            //return $user->Purchases->Select(x => x->Media)->ToList();
-            //TODO: descobrir como que faz Select()
-        }
+    function Delete($user)
+    {
+        $user->databaseManager->remove($user);
+        $this->databaseManager->flush();
+    }
  }
 
 ?>

@@ -22,7 +22,7 @@ class User extends Entity
     function __construct($name, $email, $password)
     {
         parent::__construct();
-        
+
         $this->Name = $name;
         $this->Email = $email;
 

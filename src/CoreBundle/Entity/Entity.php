@@ -15,7 +15,7 @@ abstract class Entity
 
 	/** @Column(type="boolean") */
 	public $Deleted;
-	
+
 	function __construct()
 	{
 		date_default_timezone_set('UTC');

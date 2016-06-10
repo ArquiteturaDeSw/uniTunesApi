@@ -2,6 +2,8 @@
 
 namespace CoreBundle\Entity;
 
+use LengthException;
+
 class User extends Entity
 {
     /** @Column(type="string") * */

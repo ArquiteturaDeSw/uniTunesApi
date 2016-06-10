@@ -2,6 +2,8 @@
 
 namespace CoreBundle\Entity;
 
+use DateTime;
+
 abstract class Entity
 {
 	/**
@@ -20,7 +22,7 @@ abstract class Entity
 	{
 		date_default_timezone_set('UTC');
 
-		$this->CreationDate = date('Y-m-d H:i:s');
+		$this->CreationDate = new DateTime();
 		//$this->CreationDate = new DateTime(); //TODO: verificar se isto retorna a mesma coisa que DateTime.Now
 
 		$this->Deleted = false;

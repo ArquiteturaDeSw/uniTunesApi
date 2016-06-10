@@ -6,7 +6,7 @@ namespace CoreBundle\Application;
     {
         private $_factory; //CardOperatorFactory
 
-        function __construct(EntityManager $entityManager)
+        function __construct(EntityManagerInterface $entityManager)
         {
             parent::__construct($entityManager);
             $this->_factory = new CardOperatorFactory();

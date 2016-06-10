@@ -17,6 +17,12 @@ class UserAppService extends AppServiceBase
 
     function GetById($id)
     {
+        $repository = $this->databaseManager->getRepository('CoreBundle\Entity\User');
+        
+        $builder = $this->databaseManager->createQueryBuilder();
+        $builder->select('user.name')
+            ->from('CoreBundle\Entity\User', 'user')
+            ->getQuery()->getArrayResult();
         return $this->databaseManager->find('CoreBundle\Entity\User', $id);
     }
 

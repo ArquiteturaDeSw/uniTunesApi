@@ -7,13 +7,13 @@
  */
 
 namespace CoreBundle\Application;
-
+use Doctrine\ORM\EntityManager as EntityManagerInterface;
 
 class AppServiceBase
 {
     protected $databaseManager;
 
-    function __construct(EntityManager $entityManager)
+    function __construct(EntityManagerInterface $entityManager)
     {
         $this->databaseManager = $entityManager;
     }

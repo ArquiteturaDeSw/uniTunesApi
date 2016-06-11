@@ -2,14 +2,13 @@
 #namespace UniTunes\Core\Application;
 namespace CoreBundle\Application;
 
-    class WalletAppService
+    class WalletAppService extends AppServiceBase
     {
-        private $_ctx;
         private $_factory; //CardOperatorFactory
 
-        function __construct($ctx)
+        function __construct(EntityManagerInterface $entityManager)
         {
-            $this->_ctx = $ctx;
+            parent::__construct($entityManager);
             $this->_factory = new CardOperatorFactory();
         }
 
@@ -18,7 +17,7 @@ namespace CoreBundle\Application;
             $this->_factory->GetInstance($flag).Debit($name, $cardNumber, $verificationCode, $value);
             $wallet = GetOrCreateWallet($userId);
             $wallet->AddCredit($value);
-            $this->_ctx.SaveChanges();
+            $this->databaseManager->flush();
         }
 
         function AddCreditByBoleto($barcode)

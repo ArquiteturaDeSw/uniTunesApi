@@ -2,15 +2,8 @@
 
 namespace CoreBundle\Application;
 
-    class AlbumAppService
+    class AlbumAppService extends AppServiceBase
     {
-        private $_ctx;
-        
-        function __construct($ctx)
-        {
-            $this->_ctx = $ctx;
-        }
-
         function GetAllAlbums() // : List<Album>
         {
             #return $this->_ctx->Albums->Where($x => !$x->Deleted)->OrderByDescending($x => $x->CreationDate)->ToList();

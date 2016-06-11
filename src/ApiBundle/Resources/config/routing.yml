@@ -1,3 +1,8 @@
 _get:
-    path:     /
+    path:     /api
     defaults: { _controller: ApiBundle:Users:Get }
+
+trl:
+    path:      /trl
+    # uses a special syntax to point to the controller - see note below
+    defaults:  { _controller: ApiBundle:Users:Test }

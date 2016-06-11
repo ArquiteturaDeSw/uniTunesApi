@@ -2,15 +2,8 @@
 
 namespace CoreBundle\Application;
 
-    class BookMarkAppService
+    class BookMarkAppService extends AppServiceBase
     {
-        private $_ctx;
-        
-        function __construct($ctx)
-        {
-            //$this->_ctx = $ctx;
-        }
-
         function Get($userId) // : List<BookMarkList>
         {
             #return $this->_ctx->BookMarkLists->Where($x => !$x->Deleted)->ToList();

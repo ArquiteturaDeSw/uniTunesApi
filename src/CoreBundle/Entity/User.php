@@ -12,25 +12,33 @@ class User implements UserInterface, \Serializable
     private $email;
     private $isActive;
 
-
     function __construct($name, $email, $password)
     {
-        parent::__construct();
 
         $this->setName($name);
         $this->setEmail($email);
+        $this->setPassword($password);
 
         if (strlen($password) <= 6 || strlen($password) > 30)
             throw new LengthException("the password must be longer than 6 and shorter than 30 chars.");
-
-        $this->setPassword($password);
-
-        $this->isActivate = TRUE;
+        $this->isActive = TRUE;
     }
 
     public function getUsername()
     {
         return $this->username;
+    }
+
+    public function setName($name) {
+        $this->username = $name;
+    }
+
+    public function setEmail($email) {
+        $this->email = $email;
+    }
+
+    public function setPassword($password) {
+        $this->password = $password;
     }
 
     public function getSalt()

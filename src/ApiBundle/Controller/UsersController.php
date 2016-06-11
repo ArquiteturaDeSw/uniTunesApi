@@ -8,6 +8,7 @@ use CoreBundle\Application\UserAppService;
 use CoreBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UsersController extends Controller
 {
@@ -24,5 +25,14 @@ class UsersController extends Controller
         }
 
         return new Response('Hello World');
+    }
+
+    public function TestAction()
+    {
+        // Get Service.
+        $service = $this->get('core.user.service');
+        $service->create("Thiago", "sdf@asd.com", "asdokasopdka");
+        #return $this->json(array('username' => 'jane.doe'));
+        return new JsonResponse(array('name' => 'thiago'));
     }
 }

@@ -2,14 +2,13 @@
 
 namespace CoreBundle\Application;
 
-    class MediaAppService
+    class MediaAppService extends AppServiceBase
     {
-        private $_ctx; //IDbContext
         private $_factory; //MediaFactory
         
-        function __construct($ctx)
+        function __construct(EntityManagerInterface $entityManager)
         {
-            $this->_ctx = $ctx;
+            parent::__construct($entityManager);
             $this->_factory = new MediaFactory();
         }
 

@@ -2,25 +2,25 @@ CoreBundle\Entity\User:
     type: entity
     table: users
     id:
-        Id:
+        id:
             type: integer
             id: true
             generator:
                 strategy: AUTO
     fields:
-        Name:
+        username:
             type: string
             length: 255
-            column: Name
-        Email:
+            column: username
+        email:
             type: string
             length: 255
-            column: Email
-        Password:
+            column: email
+        password:
             type: string
             length: 255
-            column: Password
-        Status:
+            column: password
+        isActive:
             type: boolean
-            column: Status
+            column: isActive
     lifecycleCallbacks: {  }

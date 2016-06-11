@@ -6,6 +6,5 @@ core:
     resource: "@CoreBundle/Resources/config/routing.yml"
     prefix:   /
 
-#app:
-#    resource: "@ApiBundle/Controller/"
-#    type:     annotation
+api_login_check:
+    path: /api/login

@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use CoreBundle\Application\UserAppService;
 use CoreBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class UsersController extends Controller
 {
@@ -15,12 +16,12 @@ class UsersController extends Controller
         // Get Service.
         $user_service = $this->get('core.user.service');
 
-        // Example Loading by id.
-        # $user = $user_service->GetById(1);
+        $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        // Example Editing a User.
-        # $user->setName('Guilherme Lopes');
-        # $user_service->Edit($user);
+        // If is not anonymous.
+        if ($user instanceof UserInterface) {
+            return new Response($user->getUsername());
+        }
 
         return new Response('Hello World');
     }

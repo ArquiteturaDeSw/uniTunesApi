@@ -2,107 +2,73 @@
 
 namespace CoreBundle\Entity;
 
-class User extends Entity
-{
-    /** @Column(type="string") * */
-    protected $Name;
-    /** @Column(type="string") * */
-    protected $Email;
-    /** @Column(type="string") * */
-    protected $Password;
-    /** @Column(type="boolean") */
-    protected $Status;
-    /** @Column(type="string") * */
-    protected $RecoveryPasswordHash;
-    /** @Column(type="boolean") */
-    protected $IsAdministrator;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-    protected $Purchases;
+class User implements UserInterface, \Serializable
+{
+    private $id;
+    private $username;
+    private $password;
+    private $email;
+    private $isActive;
+
 
     function __construct($name, $email, $password)
     {
         parent::__construct();
 
-        $this->Name = $name;
-        $this->Email = $email;
+        $this->setName($name);
+        $this->setEmail($email);
 
         if (strlen($password) <= 6 || strlen($password) > 30)
             throw new LengthException("the password must be longer than 6 and shorter than 30 chars.");
 
-        $this->Password = $password;
+        $this->setPassword($password);
 
-        $this->Activate();
+        $this->isActivate = TRUE;
     }
 
-    function Deactivate()
+    public function getUsername()
     {
-        $this->Status = UserStatus::Deactivated;
+        return $this->username;
     }
 
-    function Activate()
+    public function getSalt()
     {
-        $this->Status = UserStatus::Active;
-    }
-
-    function Block()
-    {
-        $this->Status = UserStatus::Blocked;
-    }
-
-    public function getId()
-    {
-        return $this->Id;
-    }
-
-    public function setName($name)
-    {
-        $this->Name = $name;
-        return $this;
-    }
-
-    public function getName()
-    {
-        return $this->Name;
-    }
-
-    public function setEmail($email)
-    {
-        $this->Email = $email;
-        return $this;
-    }
-
-    public function getEmail()
-    {
-        return $this->Email;
-    }
-
-    public function setPassword($password)
-    {
-        $this->Password = $password;
-        return $this;
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
     }
 
     public function getPassword()
     {
-        return $this->Password;
+        return $this->password;
     }
 
-    public function setStatus($status)
+    public function getRoles()
     {
-        $this->Status = $status;
-        return $this;
+        return array('ROLE_USER');
     }
 
-    public function getStatus()
+    public function eraseCredentials()
     {
-        return $this->Status;
     }
-}
 
-abstract class UserStatus
-{
-    const PendingApproval = 1;
-    const Active = 2;
-    const Blocked = 3;
-    const Deactivated = 4;
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+        ) = unserialize($serialized);
+    }
 }

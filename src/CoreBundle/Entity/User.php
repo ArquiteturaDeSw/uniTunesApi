@@ -3,22 +3,27 @@
 namespace CoreBundle\Entity;
 
 use LengthException;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="Users")
+ */
 class User extends Entity
 {
-    /** @Column(type="string") * */
+    /** @ORM\Column(type="string") */
     protected $Name;
-    /** @Column(type="string") * */
+    /** @ORM\Column(type="string") */
     protected $Email;
-    /** @Column(type="string") * */
+    /** @ORM\Column(type="string") */
     protected $Password;
-    /** @Column(type="boolean") */
+    /** @ORM\Column(type="boolean") */
     protected $Status;
-    /** @Column(type="string") * */
+    /** @ORM\Column(type="string") */
     protected $RecoveryPasswordHash;
-    /** @Column(type="boolean") */
+    /** @ORM\Column(type="boolean") */
     protected $IsAdministrator;
-
+    /** @OneToMany(targetEntity="Purchase", mappedBy="Buyer") */
     protected $Purchases;
 
     function __construct($name, $email, $password)
@@ -34,6 +39,8 @@ class User extends Entity
         $this->Password = $password;
 
         $this->Activate();
+
+        $this->Purchases = new ArrayCollection();
     }
 
     function Deactivate()

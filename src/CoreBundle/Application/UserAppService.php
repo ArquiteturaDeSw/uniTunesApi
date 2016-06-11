@@ -15,28 +15,36 @@ class UserAppService extends AppServiceBase
         $this->databaseManager->flush();
     }
 
-    function GetById($id)
+    function GetById($userId)
     {
-        $repository = $this->databaseManager->getRepository('CoreBundle\Entity\User');
-        
+        return $this->databaseManager->find('CoreBundle\Entity\User', $userId);
+    }
+
+    function Edit($userId, $name, $email)
+    {
+        $user = $this->databaseManager->find('CoreBundle\Entity\User', $userId);
+        $this->databaseManager->persist($user);
+        $this->databaseManager->flush();
+    }
+
+    function Delete($userId)
+    {
+        $user = $this->databaseManager->find('CoreBundle\Entity\User', $userId);
+        $user->databaseManager->remove($user);
+        $this->databaseManager->flush();
+    }
+
+    /*
+     * Exemplo de repositorio
+
+      $repository = $this->databaseManager->getRepository('CoreBundle\Entity\User');
+
         $builder = $this->databaseManager->createQueryBuilder();
         $builder->select('user.name')
             ->from('CoreBundle\Entity\User', 'user')
             ->getQuery()->getArrayResult();
         return $this->databaseManager->find('CoreBundle\Entity\User', $id);
-    }
-
-    function Edit($user)
-    {
-        $this->databaseManager->persist($user);
-        $this->databaseManager->flush();
-    }
-
-    function Delete($user)
-    {
-        $user->databaseManager->remove($user);
-        $this->databaseManager->flush();
-    }
+     */
  }
 
 ?>

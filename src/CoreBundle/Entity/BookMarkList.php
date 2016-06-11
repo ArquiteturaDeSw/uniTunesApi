@@ -2,8 +2,13 @@
 
 namespace CoreBundle\Entity;
 
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="BookMarkLists")
+ */
 class BookMarkList extends Entity
 {
+	/** @ORM\Column(type="string") */
 	public $Name;
 	public $Owner;
 	public $Items;
@@ -14,7 +19,7 @@ class BookMarkList extends Entity
 		$this->Owner = user;
 		
 		if ($this->Items == null)
-		$this->Items = array();
+		$this->Items = new ArrayCollection();
 	}
 }
 

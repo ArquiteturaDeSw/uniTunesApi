@@ -31,7 +31,7 @@ class UsersController extends Controller
     {
         // Get Service.
         $service = $this->get('core.user.service');
-        $service->create("Thiago", "sdf@asd.com", "asdokasopdka");
+        $service->create("Thiago", "sdf@asd.com", "1234");
         #return $this->json(array('username' => 'jane.doe'));
         return new JsonResponse(array('name' => 'thiago'));
     }

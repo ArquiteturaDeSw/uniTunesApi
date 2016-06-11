@@ -18,9 +18,6 @@ class User implements UserInterface, \Serializable
         $this->setName($name);
         $this->setEmail($email);
         $this->setPassword($password);
-
-        if (strlen($password) <= 6 || strlen($password) > 30)
-            throw new LengthException("the password must be longer than 6 and shorter than 30 chars.");
         $this->isActive = TRUE;
     }
 
@@ -38,7 +35,10 @@ class User implements UserInterface, \Serializable
     }
 
     public function setPassword($password) {
-        $this->password = $password;
+        $options = [
+            'cost' => 12,
+        ];
+        $this->password = password_hash($password, PASSWORD_BCRYPT, $options);
     }
 
     public function getSalt()

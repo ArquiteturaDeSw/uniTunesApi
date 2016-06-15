@@ -28,7 +28,6 @@ class UsersController extends Controller
 
         // If is not anonymous.
         if ($user instanceof UserInterface) {
-            $service->
             return new Response($user->getUsername());
         }
 

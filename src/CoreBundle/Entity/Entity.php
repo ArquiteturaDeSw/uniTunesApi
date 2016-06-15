@@ -10,9 +10,9 @@ abstract class Entity
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
-     * @GeneratedValue
+     * @ORM\GeneratedValue
      **/
-    public $Id;
+    public $id;
 
     /** @ORM\Column(type="datetime") */
     public $CreationDate;

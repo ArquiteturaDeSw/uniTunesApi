@@ -1,7 +1,7 @@
 <?php
-    
+
 namespace CoreBundle\Entity;
-    
+
 abstract class CardFlag
 {
     const Visa = 1;

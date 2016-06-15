@@ -25,7 +25,7 @@ abstract class Media extends Entity
     public $Price;
     /** @ORM\Column(type="boolean") */
     public $IsAvailable;
-    /** @Id @OneToOne(targetEntity="Category") */
+    /** @ORM\OneToOne(targetEntity="Category") */
     public $Category;
 
     function __construct()
@@ -70,7 +70,7 @@ class Video extends Audible
  */
 class Book extends Media
 {
-    /** @ORM\Column(type="int") */
+    /** @ORM\Column(type="integer") */
     public $Pages;
 }
 

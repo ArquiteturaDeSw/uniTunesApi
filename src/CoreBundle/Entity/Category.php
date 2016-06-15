@@ -2,6 +2,8 @@
 
 namespace CoreBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="Categories")
@@ -18,4 +20,5 @@ class Category extends Entity
         $this->Name = $name;
     }
 }
+
 ?>

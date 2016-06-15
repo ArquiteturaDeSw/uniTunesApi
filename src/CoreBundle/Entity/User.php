@@ -2,42 +2,68 @@
 
 namespace CoreBundle\Entity;
 
+use LengthException;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="Users")
+ */
 class User extends Entity implements UserInterface, \Serializable
 {
-    private $id;
-    private $username;
-    private $password;
-    private $email;
-    private $isActive;
+    /** @ORM\Column(type="string") */
+    protected $Name;
+    /** @ORM\Column(type="string") */
+    protected $UserName; #USED TO STORE UNISINOS LOGIN NAME
+    /** @ORM\Column(type="string") */
+    protected $Email;
+    /** @ORM\Column(type="string") */
+    protected $Password;
+    /** @ORM\Column(type="boolean") */
+    protected $Status;
+    /** @ORM\Column(type="string") */
+    protected $RecoveryPasswordHash;
+    /** @ORM\Column(type="boolean") */
+    protected $IsAdministrator;
+    /** @ORM\OneToMany(targetEntity="Purchase", mappedBy="Buyer") */
+    protected $Purchases;
 
     function __construct($name, $email, $password)
     {
+        parent::__construct();
+
+        if (strlen($password) <= 6 || strlen($password) > 30)
+            throw new LengthException("the password must be longer than 6 and shorter than 30 chars.");
+
         $this->setName($name);
         $this->setEmail($email);
         $this->setPassword($password);
-        $this->isActive = TRUE;
+        $this->Activate();
+        $this->Purchases = new ArrayCollection();
     }
 
     public function getUsername()
     {
-        return $this->username;
+        return $this->UserName;
     }
 
-    public function setName($name) {
-        $this->username = $name;
+    public function setName($name)
+    {
+        $this->Status = $name;
     }
 
-    public function setEmail($email) {
-        $this->email = $email;
+    public function setEmail($email)
+    {
+        $this->Email = $email;
     }
 
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $options = [
             'cost' => 12,
         ];
-        $this->password = password_hash($password, PASSWORD_BCRYPT, $options);
+        $this->Password = password_hash($password, PASSWORD_BCRYPT, $options);
     }
 
     public function getSalt()
@@ -49,7 +75,7 @@ class User extends Entity implements UserInterface, \Serializable
 
     public function getPassword()
     {
-        return $this->password;
+        return $this->Password;
     }
 
     public function getRoles()
@@ -64,18 +90,41 @@ class User extends Entity implements UserInterface, \Serializable
     public function serialize()
     {
         return serialize(array(
-            $this->Id,
-            $this->username,
-            $this->password,
+            $this->id,
+            $this->UserName,
+            $this->Password,
         ));
     }
 
     public function unserialize($serialized)
     {
         list (
-            $this->Id,
-            $this->username,
-            $this->password,
-        ) = unserialize($serialized);
+            $this->id,
+            $this->UserName,
+            $this->Password,
+            ) = unserialize($serialized);
     }
+
+    function Deactivate()
+    {
+        $this->Status = UserStatus::Deactivated;
+    }
+
+    function Activate()
+    {
+        $this->Status = UserStatus::Active;
+    }
+
+    function Block()
+    {
+        $this->Status = UserStatus::Blocked;
+    }
+}
+
+abstract class UserStatus
+{
+    const PendingApproval = 1;
+    const Active = 2;
+    const Blocked = 3;
+    const Deactivated = 4;
 }

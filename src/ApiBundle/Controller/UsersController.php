@@ -10,17 +10,25 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+class UserInfo
+{
+    private $id;
+    private $username;
+    private $email;
+}
+
 class UsersController extends Controller
 {
     public function GetAction()
     {
         // Get Service.
-        $user_service = $this->get('core.user.service');
+        $service = $this->get('core.user.service');
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
         // If is not anonymous.
         if ($user instanceof UserInterface) {
+            $service->
             return new Response($user->getUsername());
         }
 

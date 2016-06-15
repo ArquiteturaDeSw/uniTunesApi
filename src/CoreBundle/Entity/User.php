@@ -4,7 +4,7 @@ namespace CoreBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class User implements UserInterface, \Serializable
+class User extends Entity implements UserInterface, \Serializable
 {
     private $id;
     private $username;
@@ -14,7 +14,6 @@ class User implements UserInterface, \Serializable
 
     function __construct($name, $email, $password)
     {
-
         $this->setName($name);
         $this->setEmail($email);
         $this->setPassword($password);
@@ -65,7 +64,7 @@ class User implements UserInterface, \Serializable
     public function serialize()
     {
         return serialize(array(
-            $this->id,
+            $this->Id,
             $this->username,
             $this->password,
         ));
@@ -74,7 +73,7 @@ class User implements UserInterface, \Serializable
     public function unserialize($serialized)
     {
         list (
-            $this->id,
+            $this->Id,
             $this->username,
             $this->password,
         ) = unserialize($serialized);

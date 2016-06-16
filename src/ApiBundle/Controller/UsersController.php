@@ -2,24 +2,20 @@
 
 namespace ApiBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use CoreBundle\Application\UserAppService;
-use CoreBundle\Entity\User;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class UserInfo
-{
-    private $id;
-    private $username;
-    private $email;
-}
+use CoreBundle\Application\UserAppService;
+use ApiBundle\Model\User;
 
+
+/**
+ * Controladora de usuários
+ */
 class UsersController extends Controller
 {
-    public function GetAction()
+    public function getAction()
     {
         // Get Service.
         $service = $this->get('core.user.service');
@@ -28,18 +24,27 @@ class UsersController extends Controller
 
         // If is not anonymous.
         if ($user instanceof UserInterface) {
-            return new Response($user->getUsername());
+            return new JsonResponse(new User($user));
         }
 
-        return new Response('Hello World');
+        return new JsonResponse('Hello World');
     }
 
-    public function TestAction()
+    /**
+     * Obtém a lista de usuários
+     *
+     * @access public
+     * @return JsonResponse
+     */
+    public function getListAction()
     {
-        // Get Service.
         $service = $this->get('core.user.service');
-        $service->create("Thiago", "sdf@asd.com", "1234");
-        #return $this->json(array('username' => 'jane.doe'));
-        return new JsonResponse(array('name' => 'thiago'));
+        $data = $service->getAll();
+        $result = [];
+        foreach ($data as $entity) {
+            $result[] = new User($entity);
+        }
+
+        return new JsonResponse($result);
     }
 }

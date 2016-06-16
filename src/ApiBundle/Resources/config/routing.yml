@@ -1,6 +1,7 @@
-_get:
-    path:     /api
-    defaults: { _controller: ApiBundle:Users:Get }
+user_get_list:
+    path:     /api/users
+    defaults: { _controller: ApiBundle:Users:getList }
+    methods: [GET]
 
 trl:
     path:      /trl

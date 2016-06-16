@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="Categories")
+ * @ORM\Table(name="categories")
  */
 class Category extends Entity
 {

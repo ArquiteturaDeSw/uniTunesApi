@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="Albums")
+ * @ORM\Table(name="albums")
  */
 class Album extends Entity
 {
@@ -16,13 +16,16 @@ class Album extends Entity
     //TODO: descobrir se há possibilidade de uma midia nao estar em algum album...
     //pois isso muda a forma como o mapeamento é feito.
     //pode ser one to many uni direcional ou milt direcional
-    public $medias;//TODO: como forçar isso ser: List<Media> ??
+    /** @ORM\OneToMany(targetEntity="AlbumItem", mappedBy="album") */
+    public $items;//List<Media>
 
     function __construct($name)
     {
         $this->name = $name;
-        $this->medias = new ArrayCollection();
+        $this->items = new ArrayCollection();
     }
 }
+
+
 
 ?>

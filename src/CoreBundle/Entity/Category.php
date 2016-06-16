@@ -13,11 +13,11 @@ class Category extends Entity
     /**
      * @ORM\Column(type="string")
      */
-    public $Name;
+    public $name;
 
     function __construct($name)
     {
-        $this->Name = $name;
+        $this->name = $name;
     }
 }
 

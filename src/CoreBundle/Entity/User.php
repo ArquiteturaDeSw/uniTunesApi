@@ -26,7 +26,7 @@ class User extends Entity implements UserInterface, \Serializable
     protected $recoveryPasswordHash;
     /** @ORM\Column(type="boolean") */
     protected $isAdministrator;
-    /** @ORM\OneToMany(targetEntity="Purchase", mappedBy="Buyer") */
+    /** @ORM\OneToMany(targetEntity="Purchase", mappedBy="buyer") */
     protected $purchases;
 
     function __construct($name, $email, $password)
@@ -119,12 +119,4 @@ class User extends Entity implements UserInterface, \Serializable
     {
         $this->status = UserStatus::Blocked;
     }
-}
-
-abstract class UserStatus
-{
-    const PendingApproval = 1;
-    const Active = 2;
-    const Blocked = 3;
-    const Deactivated = 4;
 }

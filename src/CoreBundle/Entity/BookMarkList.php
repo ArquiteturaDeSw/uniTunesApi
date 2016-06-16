@@ -11,17 +11,17 @@ use Doctrine\ORM\Mapping as ORM;
 class BookMarkList extends Entity
 {
     /** @ORM\Column(type="string") */
-    public $Name;
-    public $Owner;
-    public $Items;
+    public $name;
+    public $owner;
+    public $items;
 
     function __construct($name, $user)
     {
-        $this->Name = name;
-        $this->Owner = user;
+        $this->name = name;
+        $this->owner = user;
 
-        if ($this->Items == null)
-            $this->Items = new ArrayCollection();
+        if ($this->items == null)
+            $this->items = new ArrayCollection();
     }
 }
 

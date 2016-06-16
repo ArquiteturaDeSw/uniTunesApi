@@ -10,27 +10,30 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="Medias")
  * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="Discriminator", type="string")
+ * @ORM\DiscriminatorColumn(name="discriminator", type="string")
  */
 abstract class Media extends Entity
 {
     /** @ORM\Column(type="string") */
-    public $Name;
+    public $name;
     /** @ORM\Column(type="text") */
-    public $Description;
-    public $Author;
+    public $description;
+    
+    //TODO: Remaining check how to do this relationship
+    public $author;
+    
     /** @ORM\Column(type="string") */
-    public $ImagePath;
+    public $imagePath;
     /** @ORM\Column(type="decimal", scale=2) */
-    public $Price;
+    public $price;
     /** @ORM\Column(type="boolean") */
-    public $IsAvailable;
+    public $isAvailable;
     /** @ORM\OneToOne(targetEntity="Category") */
-    public $Category;
+    public $category;
 
     function __construct()
     {
-        $this->Author = new ArrayCollection(); //List<User>
+        $this->author = new ArrayCollection(); //List<User>
     }
 }
 
@@ -53,7 +56,7 @@ class Music extends Audible
 class PodCast extends Audible
 {
     /** @ORM\Column(type="string") */
-    public $UrlFeed;
+    public $urlFeed;
 }
 
 /**
@@ -62,7 +65,7 @@ class PodCast extends Audible
 class Video extends Audible
 {
     /** @ORM\Column(type="string") */
-    public $Quality;
+    public $quality;
 }
 
 /**
@@ -71,7 +74,7 @@ class Video extends Audible
 class Book extends Media
 {
     /** @ORM\Column(type="integer") */
-    public $Pages;
+    public $pages;
 }
 
 ?>

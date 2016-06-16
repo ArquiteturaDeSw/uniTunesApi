@@ -6,24 +6,24 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="Wallets")
+ * @ORM\Table(name="wallets")
  */
 class Wallet extends Entity
 {
     /** @ORM\OneToOne(targetEntity="User") */
-    public $Owner;
+    public $owner;
     /** @ORM\Column(type="decimal", scale=2) */
-    public $CurrentValue;
+    public $currentValue;
 
     function __construct($user)
     {
-        $this->Owner = $user;
-        $this->CurrentValue = 0;
+        $this->owner = $user;
+        $this->currentValue = 0;
     }
 
     function AddCredit($value)
     {
-        $this->CurrentValue += $value;
+        $this->currentValue += $value;
     }
 }
 

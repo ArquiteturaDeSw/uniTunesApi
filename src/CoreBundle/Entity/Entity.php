@@ -15,19 +15,19 @@ abstract class Entity
     public $id;
 
     /** @ORM\Column(type="datetime") */
-    public $CreationDate;
+    public $creationDate;
 
     /** @ORM\Column(type="boolean") */
-    public $Deleted;
+    public $deleted;
 
     function __construct()
     {
         date_default_timezone_set('UTC');
 
-        $this->CreationDate = new DateTime();
+        $this->creationDate = new DateTime();
         //$this->CreationDate = new DateTime(); //TODO: verificar se isto retorna a mesma coisa que DateTime.Now
 
-        $this->Deleted = false;
+        $this->deleted = false;
     }
 }
 

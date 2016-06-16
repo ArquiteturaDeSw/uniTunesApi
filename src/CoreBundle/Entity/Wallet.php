@@ -12,6 +12,7 @@ class Wallet extends Entity
 {
     /** @ORM\OneToOne(targetEntity="User") */
     public $owner;
+    
     /** @ORM\Column(type="decimal", scale=2) */
     public $currentValue;
 

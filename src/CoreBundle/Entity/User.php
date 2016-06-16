@@ -8,26 +8,26 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="Users")
+ * @ORM\Table(name="users")
  */
 class User extends Entity implements UserInterface, \Serializable
 {
     /** @ORM\Column(type="string") */
-    protected $Name;
+    protected $name;
     /** @ORM\Column(type="string") */
-    protected $UserName; #USED TO STORE UNISINOS LOGIN NAME
+    protected $username; #USED TO STORE UNISINOS LOGIN NAME
     /** @ORM\Column(type="string") */
-    protected $Email;
+    protected $email;
     /** @ORM\Column(type="string") */
-    protected $Password;
+    protected $password;
     /** @ORM\Column(type="boolean") */
-    protected $Status;
+    protected $status;
     /** @ORM\Column(type="string") */
-    protected $RecoveryPasswordHash;
+    protected $recoveryPasswordHash;
     /** @ORM\Column(type="boolean") */
-    protected $IsAdministrator;
+    protected $isAdministrator;
     /** @ORM\OneToMany(targetEntity="Purchase", mappedBy="Buyer") */
-    protected $Purchases;
+    protected $purchases;
 
     function __construct($name, $email, $password)
     {
@@ -39,23 +39,23 @@ class User extends Entity implements UserInterface, \Serializable
         $this->setName($name);
         $this->setEmail($email);
         $this->setPassword($password);
-        $this->Activate();
-        $this->Purchases = new ArrayCollection();
+        $this->activate();
+        $this->purchases = new ArrayCollection();
     }
 
     public function getUsername()
     {
-        return $this->UserName;
+        return $this->username;
     }
 
     public function setName($name)
     {
-        $this->Status = $name;
+        $this->name = $name;
     }
 
     public function setEmail($email)
     {
-        $this->Email = $email;
+        $this->email = $email;
     }
 
     public function setPassword($password)
@@ -63,7 +63,7 @@ class User extends Entity implements UserInterface, \Serializable
         $options = [
             'cost' => 12,
         ];
-        $this->Password = password_hash($password, PASSWORD_BCRYPT, $options);
+        $this->password = password_hash($password, PASSWORD_BCRYPT, $options);
     }
 
     public function getSalt()
@@ -75,7 +75,7 @@ class User extends Entity implements UserInterface, \Serializable
 
     public function getPassword()
     {
-        return $this->Password;
+        return $this->password;
     }
 
     public function getRoles()
@@ -91,8 +91,8 @@ class User extends Entity implements UserInterface, \Serializable
     {
         return serialize(array(
             $this->id,
-            $this->UserName,
-            $this->Password,
+            $this->username,
+            $this->password,
         ));
     }
 
@@ -100,24 +100,24 @@ class User extends Entity implements UserInterface, \Serializable
     {
         list (
             $this->id,
-            $this->UserName,
-            $this->Password,
+            $this->username,
+            $this->password,
             ) = unserialize($serialized);
     }
 
-    function Deactivate()
+    function deactivate()
     {
-        $this->Status = UserStatus::Deactivated;
+        $this->status = UserStatus::Deactivated;
     }
 
-    function Activate()
+    function activate()
     {
-        $this->Status = UserStatus::Active;
+        $this->status = UserStatus::Active;
     }
 
-    function Block()
+    function block()
     {
-        $this->Status = UserStatus::Blocked;
+        $this->status = UserStatus::Blocked;
     }
 }
 
